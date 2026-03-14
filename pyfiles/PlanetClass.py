@@ -12,10 +12,10 @@ class Planet:
         return f"{self.name} {self.diameter/1000}km {self.mass} kg \n -------------------------------------------------"
 
     G = 6.67 * np.power(10.0, -11.0)
-    @classmethod
-    def time_distance(planet, total_thrust):
-        v = planet.showEscPlanetsVelocity(planet)
-        g = planet.surface_gravity(planet)
+
+    def time_distance(self, total_thrust):
+        v = self.showEscPlanetsVelocity()
+        g = self.surface_gravity()
         a = total_thrust - g
         if a <= 0:
             return None, None
@@ -23,18 +23,15 @@ class Planet:
         d = (v ** 2) / (2 * a)
         return t, d
 
-    @classmethod
-    def surface_gravity(planet):
-        r = planet.diameter / 2
-        return planet.G * planet.mass / (r ** 2)
 
-    @classmethod
-    def showEscPlanetsVelocity(cls, planets):
+    def surface_gravity(self) -> float:
+        r = self.diameter / 2
+        return self.G * self.mass / (r ** 2)
 
-        for planet in planets:
-            v = np.sqrt(2*planet.G*planet.mass/planet.diameter*2)
-            print(f"{planet.name:<10}  v = {v:.2e} m/s")
-            return v
+
+    def showEscPlanetsVelocity(self) -> float:
+            r = self.diameter / 2
+            return float(np.sqrt(2 * self.G * self.mass / r))
 
 
     @classmethod

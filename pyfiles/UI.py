@@ -191,11 +191,11 @@ class SolarApp(tk.Tk):
             rf.bind("<Leave>",  lambda e, f=rf: f.configure(bg="#090f24"))
             rf.bind("<Button-1>", lambda e, pl=p: self._select_planet(pl))
 
-            v = pc.showEscPlanetsVelocity([p])
-            g = pc.surface_gravity([p])
+            v = p.ShowEscPlanetsVelocity();
+            g = p.surface_gravity()
             thrust = self.total_thrust
             a_net = thrust - g
-            t, d = pc.time_distance(p, thrust)
+            t, d = p.time_distance(self.total_thrust)
 
             if mode == "planets":
                 vals = [p.name,
@@ -221,9 +221,9 @@ class SolarApp(tk.Tk):
     # ── detail panel ─────────────────────────────────────────────────────────
     def _select_planet(self, planet):
         self.selected = planet.name
-        v  = pc.showEscPlanetsVelocity(planet)
-        g  = pc.calc_surface_gravity(planet)
-        t, d = pc.time_distance(planet, self.total_thrust)
+        v = planet.escape_velocity()
+        g = planet.surface_gravity()
+        t, d = planet.time_distance(self.total_thrust)
         a_net = self.total_thrust - g
 
         t_str = f"{t:.2f} s"   if t else "Cannot escape!"
