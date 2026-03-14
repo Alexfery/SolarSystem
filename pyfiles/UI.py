@@ -191,7 +191,7 @@ class SolarApp(tk.Tk):
             rf.bind("<Leave>",  lambda e, f=rf: f.configure(bg="#090f24"))
             rf.bind("<Button-1>", lambda e, pl=p: self._select_planet(pl))
 
-            v = p.ShowEscPlanetsVelocity();
+            v = p.showEscPlanetsVelocity();
             g = p.surface_gravity()
             thrust = self.total_thrust
             a_net = thrust - g
